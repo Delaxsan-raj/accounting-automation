@@ -3,7 +3,7 @@ name: Accounting Automation Tests
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # Allows you to run it manually
+  workflow_dispatch:
 
 jobs:
   test:
@@ -21,18 +21,18 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirement.txt
-        playwright install chromium
+        # This is needed because your project uses Playwright
+        playwright install chromium 
 
     - name: Run Tests
       env:
-        # Use GitHub Secrets for security
         ADMIN_LOGIN: ${{ secrets.ADMIN_LOGIN }}
         ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-      run: pytest --html=report.html
+      run: pytest --html=report.html --self-contained-html
 
     - name: Upload Test Report
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: test-report
+        name: api-test-report
         path: report.html
