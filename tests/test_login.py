@@ -42,14 +42,6 @@ def test_failed_login_invalid_emails(page, invalid_email):
     login_pg.login(invalid_email, invalid_password)
     page.wait_for_timeout(2000)
 
-    
-
-
-    
-    
-    
-    
-
 # --- New Email Validation Tests ---
 
 def test_login_empty_email(page):
