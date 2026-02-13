@@ -1,0 +1,38 @@
+name: Accounting Automation Tests
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allows you to run it manually
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirement.txt
+        playwright install chromium
+
+    - name: Run Tests
+      env:
+        # Use GitHub Secrets for security
+        ADMIN_LOGIN: ${{ secrets.ADMIN_LOGIN }}
+        ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      run: pytest --html=report.html
+
+    - name: Upload Test Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-report
+        path: report.html
