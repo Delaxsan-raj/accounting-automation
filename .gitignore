@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# Environment Variables
+.env
+
+# Pytest
+.pytest_cache/
+
+# Playwright Artifacts
+test-results/
+screenshots/
+videos/
+artifacts/
+
+# System
+.DS_Store
