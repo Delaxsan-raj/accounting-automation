@@ -15,7 +15,7 @@ def browser():
     with sync_playwright() as p:
         # Launch with 'AutomationControlled' disabled for extra safety
         browser = p.chromium.launch(
-            headless=False, 
+            headless=True, 
             args=["--disable-blink-features=AutomationControlled"]
         )
         yield browser
